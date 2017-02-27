@@ -1,0 +1,25 @@
+
+lb:
+  image: jwilder/nginx-proxy
+  ports:
+    - "8080:80"
+  volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock"
+ui1:
+  image: guimard/ui
+  links:
+    - echo-service
+    - redis
+  environment:
+    VIRTUAL_HOST: docker-machine.dev
+ui2:
+  image: guimard/ui
+  links:
+    - echoservice
+    - redis
+  environment:
+    VIRTUAL_HOST: docker-machine.dev
+helloworldservice:
+  image: guimard/echo-service
+redis:
+  image: redis
